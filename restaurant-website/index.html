@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Adorsi | Specialty Coffee Ethiopia</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,500;1,600&family=Inter:wght@300;400;600&display=swap');
+
+    :root { --gold: #ca8a04; }
+    body { overflow-x: hidden; background-color: #000; color: #f3f4f6; font-family: 'Inter', sans-serif; }
+    
+    /* FILM GRAIN TEXTURE */
+    body::before {
+      content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background-image: url("https://grainy-gradients.vercel.app/noise.svg");
+      opacity: 0.05; pointer-events: none; z-index: 9999;
+    }
+
+    body.loading { overflow: hidden; }
+    .font-serif { font-family: 'Playfair Display', serif; }
+
+    /* Animation Optimization */
+    .images-container { will-change: transform; }
+    .description-fade { transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
+
+    /* Gallery Image Styling (3-image rows) */
+    .gallery-img {
+      height: 450px; width: 300px;
+      object-fit: cover; border-radius: 2rem;
+      flex-shrink: 0;
+      transition: transform 0.6s cubic-bezier(0.2, 0, 0.2, 1);
+    }
+    .gallery-img:hover { transform: scale(1.03) translateY(-10px); }
+
+    /* Experience Room Aligned Images (2-image row) */
+    .experience-img {
+      height: 450px; width: 280px;
+      object-fit: cover; border-radius: 1.5rem;
+      transition: filter 1s ease, transform 0.5s ease;
+    }
+
+    /* Loader Styles */
+    #loader {
+      position: fixed; inset: 0; z-index: 1000;
+      background-color: #000;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+    }
+    .loader-bar {
+      width: 250px; height: 1px;
+      background: rgba(255,255,255,0.1);
+      margin-top: 3rem; position: relative; overflow: hidden;
+    }
+    .loader-progress {
+      position: absolute; top: 0; left: 0; height: 100%; width: 100%;
+      background: var(--gold);
+      transform: translateX(-100%);
+      transition: transform 2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Chapter Header Animation */
+    .chapter-title {
+        transition: all 1.5s cubic-bezier(0.19, 1, 0.22, 1);
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    .chapter-title.active {
+        transform: translateY(0);
+        opacity: 1;
+    }
+  </style>
+</head>
+<body class="loading">
+
+  <!-- Loading Screen -->
+  <div id="loader">
+    <img src="logo.jpg" alt="Adorsi Logo" class="w-64 md:w-80 animate-pulse">
+    <div class="loader-bar"><div id="loader-progress" class="loader-progress"></div></div>
+    <p class="text-[10px] tracking-[0.6em] uppercase text-white/40 mt-6 italic">The Birthplace of Coffee</p>
+  </div>
+
+  <!-- Navbar -->
+  <header class="w-full fixed top-0 left-0 z-50 bg-black/40 backdrop-blur-xl border-b border-white/5">
+    <div class="max-w-7xl mx-auto px-6 md:px-16 flex justify-between items-center h-20">
+      <img src="logo.jpg" alt="Adorsi Logo" class="h-10">
+      <nav class="hidden md:block">
+        <ul class="flex space-x-10 text-white font-medium text-xs uppercase tracking-widest">
+          <li><a href="#about" class="hover:text-yellow-600 transition">About Us</a></li>
+          <li><a href="#gallery" class="text-yellow-600 font-bold tracking-tighter transition">Menu</a></li>
+          <li><a href="#experience" class="hover:text-yellow-600 transition">Experience</a></li>
+          <li><a href="#contact" class="hover:text-yellow-600 transition">Contact Us</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section id="home" class="relative flex flex-col lg:flex-row items-center justify-between w-full min-h-screen pt-28 pb-12 px-6 md:px-16 bg-black">
+    <div class="lg:w-1/4 flex flex-col items-center lg:items-start text-center lg:text-left mb-12">
+      <img src="logo.jpg" alt="Adorsi Logo" class="w-48 mb-6">
+      <h1 class="text-white text-5xl font-light leading-tight">
+        The heart of <br>
+        <span class="font-serif italic text-yellow-600">Ethiopian</span> coffee.
+      </h1>
+      <p class="text-gray-400 mt-6 text-lg font-light leading-relaxed">Experience heritage in every pour, from the soil to the cup.</p>
+    </div>
+
+    <!-- Center Video -->
+    <div class="lg:w-2/5 w-full flex justify-center mb-12 lg:mb-0">
+      <div class="relative w-full max-w-[340px] aspect-[9/16] overflow-hidden rounded-[100px] border border-white/10 shadow-[0_0_100px_rgba(202,138,4,0.1)]">
+        <video autoplay loop muted playsinline class="w-full h-full object-cover grayscale-[20%]">
+          <source src="hero-video.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+
+    <!-- Right Card -->
+    <div class="lg:w-1/4 w-full">
+      <div class="bg-white/5 backdrop-blur-2xl p-8 rounded-[2.5rem] border border-white/10 shadow-2xl">
+        <h4 class="text-yellow-600 text-[10px] font-bold uppercase tracking-widest mb-3">Service Hours</h4>
+        <p class="text-white text-lg font-medium">Mon — Sun</p>
+        <p class="text-gray-400 text-sm mb-8">08:00 AM - 09:30 PM</p>
+        
+        <div class="space-y-4">
+            <a href="#contact" class="block w-full bg-yellow-600 text-black text-center py-4 rounded-2xl font-bold hover:bg-yellow-500 transition">Find Us</a>
+            <a href="#gallery" class="block w-full border border-white/20 text-white text-center py-4 rounded-2xl font-bold hover:bg-white/5 transition">Browse Menu</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="py-40 px-6 md:px-16 bg-zinc-950 flex flex-col md:flex-row items-center justify-center gap-20">
+    <div class="md:w-1/2 flex justify-end">
+      <div class="relative overflow-hidden rounded-2xl shadow-3xl">
+        <img id="parallax-img" src="photo6.jpg" alt="Heritage" class="max-w-md w-full scale-110 grayscale hover:grayscale-0 transition duration-1000 border border-white/5 cursor-crosshair">
+      </div>
+    </div>
+    <div class="md:w-1/2 text-center md:text-left">
+      <h2 class="text-4xl md:text-6xl font-bold mb-8 tracking-tighter text-white">Our Story</h2>
+      <p class="text-xl text-gray-400 leading-relaxed max-w-lg font-light">
+        Rooted in the highlands of Ethiopia, we celebrate the soul of our homeland. Every cup blends <span class="text-white">expert craftsmanship</span> with rich Ethiopian flavors.
+      </p>
+    </div>
+  </section>
+
+  <!-- Philosophy (The Pillars) -->
+  <section class="py-32 bg-black border-y border-white/5">
+    <div class="max-w-7xl mx-auto px-6 md:px-16">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-16 md:gap-8">
+        <div class="text-center group">
+          <span class="block text-6xl font-serif italic text-white/10 mb-6 group-hover:text-yellow-600/20 transition">01</span>
+          <h3 class="text-xl font-bold text-white mb-4 uppercase tracking-widest">Highland Sourced</h3>
+          <p class="text-gray-500 font-light leading-relaxed">Directly from the high-altitude micro-lots of Yirgacheffe and Sidamo.</p>
+        </div>
+        <div class="text-center group">
+          <span class="block text-6xl font-serif italic text-white/10 mb-6 group-hover:text-yellow-600/20 transition">02</span>
+          <h3 class="text-xl font-bold text-white mb-4 uppercase tracking-widest">Small Batch</h3>
+          <p class="text-gray-500 font-light leading-relaxed">Masterfully roasted in Addis Ababa every 24 hours.</p>
+        </div>
+        <div class="text-center group">
+          <span class="block text-6xl font-serif italic text-white/10 mb-6 group-hover:text-yellow-600/20 transition">03</span>
+          <h3 class="text-xl font-bold text-white mb-4 uppercase tracking-widest">Artisan Ritual</h3>
+          <p class="text-gray-500 font-light leading-relaxed">A balance of precision and traditional Ethiopian hospitality.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHAPTER TITLE 1: THE MENU -->
+  <section class="pt-40 pb-20 text-center bg-black overflow-hidden">
+    <h4 class="text-yellow-600 text-[11px] font-bold uppercase tracking-[0.6em] mb-4">Discovery</h4>
+    <h2 class="chapter-title text-6xl md:text-9xl font-serif italic text-white/20 select-none">The Menu</h2>
+  </section>
+
+  <!-- Gallery Content -->
+  <section id="gallery" class="pb-32 space-y-64">
+
+    <!-- Row 1: Desserts -->
+    <div class="gallery-row max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center">
+      <div class="description-fade md:w-1/4 mb-12 md:mb-0 opacity-0 -translate-x-12">
+        <h3 class="text-yellow-600 text-[10px] font-bold uppercase tracking-[0.4em] mb-4">Sweet Selection</h3>
+        <h3 class="text-5xl font-serif italic mb-6 text-white">House <br> Desserts</h3>
+        <p class="text-gray-400 text-lg font-light leading-relaxed">Handcrafted treats designed to pair perfectly with our signature roasts.</p>
+      </div>
+      <div class="images-container md:w-3/4 flex space-x-6 overflow-hidden">
+        <img src="photo1.jpg" class="gallery-img shadow-2xl">
+        <img src="photo2.jpg" class="gallery-img shadow-2xl">
+        <img src="photo13.jpg" class="gallery-img shadow-2xl">
+      </div>
+    </div>
+
+    <!-- Row 2: Savory -->
+    <div class="gallery-row max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center">
+      <div class="description-fade md:w-1/4 mb-12 md:mb-0 opacity-0 -translate-x-12">
+        <h3 class="text-yellow-600 text-[10px] font-bold uppercase tracking-[0.4em] mb-4">Artisan Provisions</h3>
+        <h3 class="text-5xl font-serif italic mb-6 text-white">Savory <br> Selection</h3>
+        <p class="text-gray-400 text-lg font-light leading-relaxed">Fresh, flavorful dishes made daily with locally sourced ingredients.</p>
+      </div>
+      <div class="images-container md:w-3/4 flex space-x-6 overflow-hidden">
+        <img src="photo3.jpg" class="gallery-img shadow-2xl">
+        <img src="photo9.jpg" class="gallery-img shadow-2xl">
+        <img src="photo12.jpg" class="gallery-img shadow-2xl">
+      </div>
+    </div>
+
+    <!-- Row 3: Chef's Favorites -->
+    <div class="gallery-row max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center">
+      <div class="description-fade md:w-1/4 mb-12 md:mb-0 opacity-0 -translate-x-12">
+        <h3 class="text-yellow-600 text-[10px] font-bold uppercase tracking-[0.4em] mb-4">Master Collection</h3>
+        <h3 class="text-5xl font-serif italic mb-6 text-white">House <br> Favorites</h3>
+        <p class="text-gray-400 text-lg font-light leading-relaxed">Experience the rich heritage of the world's finest coffee beans.</p>
+      </div>
+      <div class="images-container md:w-3/4 flex space-x-6 overflow-hidden">
+        <img src="photo5.jpg" class="gallery-img shadow-2xl">
+        <img src="photo12.jpg" class="gallery-img shadow-2xl">
+        <img src="photo9.jpg" class="gallery-img shadow-2xl">
+      </div>
+    </div>
+
+    <!-- CHAPTER TITLE 2: THE EXPERIENCE -->
+    <section class="py-40 text-center bg-black overflow-hidden">
+        <h4 class="text-yellow-600 text-[11px] font-bold uppercase tracking-[0.6em] mb-4">Exclusivity</h4>
+        <h2 class="chapter-title text-6xl md:text-9xl font-serif italic text-white/20 select-none">The Sanctuary</h2>
+    </section>
+
+    <!-- Row 4: THE EXPERIENCE ROOM (Aligned Images) -->
+    <div id="experience" class="gallery-row max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center py-28 bg-zinc-900/40 rounded-[4rem] border border-white/5 relative">
+      <div class="description-fade md:w-1/2 md:px-16 mb-12 md:mb-0 opacity-0 -translate-x-12">
+        <h4 class="text-yellow-600 text-xs font-bold uppercase tracking-[0.4em] mb-4">The Ritual</h4>
+        <h3 class="text-5xl font-serif italic mb-6 text-white">The Experience Room</h3>
+        <p class="text-gray-300 text-lg font-light mb-8 max-w-sm leading-relaxed">
+          A sanctuary for the coffee purist. Intimate cuppings and sensory rituals in the heart of Addis.
+        </p>
+        <a href="#contact" class="group text-yellow-600 border-b border-yellow-600 pb-1 italic flex items-center w-max gap-2 transition">
+            Book a session <span>&rarr;</span>
+        </a>
+      </div>
+      
+      <div class="images-container md:w-1/2 flex items-center justify-center space-x-8">
+        <img src="photo14.jpg" class="experience-img shadow-3xl grayscale hover:grayscale-0">
+        <img src="photo15.jpg" class="experience-img shadow-3xl grayscale hover:grayscale-0">
+      </div>
+    </div>
+
+  </section>
+
+  <!-- Footer -->
+  <footer id="contact" class="py-20 bg-black border-t border-white/5 text-center">
+    <img src="logo.jpg" class="h-8 mx-auto mb-8 opacity-30 grayscale">
+    <p class="text-gray-500 text-[10px] tracking-[0.5em] uppercase">&copy; 2024 Adorsi Specialty Coffee. Ethiopia.</p>
+  </footer>
+
+  <script>
+    // 1. Loader Logic
+    window.addEventListener('load', () => {
+      const progress = document.getElementById('loader-progress');
+      progress.style.transform = 'translateX(0)';
+      
+      setTimeout(() => {
+        document.getElementById('loader').style.opacity = '0';
+        document.body.classList.remove('loading');
+        setTimeout(() => { document.getElementById('loader').style.display = 'none'; }, 1000);
+      }, 2200);
+    });
+
+    // 2. Parallax Effect
+    window.addEventListener('scroll', () => {
+      const img = document.getElementById('parallax-img');
+      const speed = 0.05;
+      const yPos = -(window.pageYOffset * speed);
+      img.style.transform = `translateY(${yPos}px) scale(1.1)`;
+    });
+
+    // 3. Scroll Triggered Animation
+    function handleScroll() {
+      const rows = document.querySelectorAll(".gallery-row");
+      const chapters = document.querySelectorAll(".chapter-title");
+      const viewportHeight = window.innerHeight;
+
+      // Handle Gallery and Descriptions
+      rows.forEach(row => {
+        const images = row.querySelector(".images-container");
+        const description = row.querySelector(".description-fade");
+        const rect = row.getBoundingClientRect();
+        
+        let progress = (viewportHeight - rect.top) / (viewportHeight * 0.9);
+        progress = Math.max(0, Math.min(1, progress));
+
+        if (images) {
+          const moveAmount = 200 * (1 - progress);
+          images.style.transform = `translateX(${moveAmount}px)`;
+        }
+
+        if (progress > 0.15 && description) {
+          description.style.opacity = "1";
+          description.style.transform = "translateX(0)";
+        } else if (description) {
+          description.style.opacity = "0";
+          description.style.transform = "translateX(-40px)";
+        }
+      });
+
+      // Handle Chapter Titles
+      chapters.forEach(title => {
+          const rect = title.getBoundingClientRect();
+          if(rect.top < viewportHeight * 0.8) {
+              title.classList.add('active');
+          }
+      });
+    }
+
+    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("resize", handleScroll);
+  </script>
+
+</body>
+</html>
